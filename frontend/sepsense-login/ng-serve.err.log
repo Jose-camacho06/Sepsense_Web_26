@@ -1,0 +1,132 @@
+Node.js version v25.1.0 detected.
+Prior to version 27, odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/previous-releases/.
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: All imports are unused[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/app.ts:6:2:
+[37m      6 │   [32mimports[37m: [RouterOutlet],
+        ╵   [32m~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG5002: Opening tag "ro" not terminated.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/app.html:0:0:
+[37m      0 │ [32m[37m
+        ╵ [32m^[0m
+
+  Error occurs in the template of component App.
+
+    src/app/app.ts:7:15:
+[37m      7 │   templateUrl: [32m'./app.html'[37m,
+        ╵                [32m~~~~~~~~~~~~[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: All imports are unused[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/app.ts:6:2:
+[37m      6 │   [32mimports[37m: [RouterOutlet],
+        ╵   [32m~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG5002: Opening tag "router" not terminated.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/app.html:0:0:
+[37m      0 │ [32m[37m
+        ╵ [32m^[0m
+
+  Error occurs in the template of component App.
+
+    src/app/app.ts:7:15:
+[37m      7 │   templateUrl: [32m'./app.html'[37m,
+        ╵                [32m~~~~~~~~~~~~[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: All imports are unused[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/app.ts:6:2:
+[37m      6 │   [32mimports[37m: [RouterOutlet],
+        ╵   [32m~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG5002: Opening tag "router-oulet" not terminated.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/app.html:0:0:
+[37m      0 │ [32m[37m
+        ╵ [32m^[0m
+
+  Error occurs in the template of component App.
+
+    src/app/app.ts:7:15:
+[37m      7 │   templateUrl: [32m'./app.html'[37m,
+        ╵                [32m~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG8001: 'router-oulet' is not a known element:
+1. If 'router-oulet' is an Angular component, then verify that it is included in the '@Component.imports' of this component.
+2. If 'router-oulet' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@Component.schemas' of this component to suppress this message.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/app.html:0:0:
+[37m      0 │ [32m[37m
+        ╵ [32m^[0m
+
+  Error occurs in the template of component App.
+
+    src/app/app.ts:7:15:
+[37m      7 │   templateUrl: [32m'./app.html'[37m,
+        ╵                [32m~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG8001: 'router-oulet' is not a known element:
+1. If 'router-oulet' is an Angular component, then verify that it is included in the '@Component.imports' of this component.
+2. If 'router-oulet' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@Component.schemas' of this component to suppress this message.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/app.html:0:0:
+[37m      0 │ [32m[37m
+        ╵ [32m^[0m
+
+  Error occurs in the template of component App.
+
+    src/app/app.ts:7:15:
+[37m      7 │   templateUrl: [32m'./app.html'[37m,
+        ╵                [32m~~~~~~~~~~~~[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: All imports are unused[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/app.ts:6:2:
+[37m      6 │   [32mimports[37m: [RouterOutlet],
+        ╵   [32m~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG5002: Unexpected closing tag "router-oulet". It may happen when the tag has already been closed by another tag. For more info see https://www.w3.org/TR/html5/syntax.html#closing-elements-that-have-implied-end-tags[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/app.html:1:2:
+[37m      1 │   [32m</router-oulet>[37m<router-outlet />
+        ╵   [32m~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component App.
+
+    src/app/app.ts:7:15:
+[37m      7 │   templateUrl: [32m'./app.html'[37m,
+        ╵                [32m~~~~~~~~~~~~[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: All imports are unused[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/app.ts:6:2:
+[37m      6 │   [32mimports[37m: [RouterOutlet],
+        ╵   [32m~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG5002: Unexpected closing tag "router-oulet". It may happen when the tag has already been closed by another tag. For more info see https://www.w3.org/TR/html5/syntax.html#closing-elements-that-have-implied-end-tags[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/app.html:0:0:
+[37m      0 │ [32m[37m
+        ╵ [32m^[0m
+
+  Error occurs in the template of component App.
+
+    src/app/app.ts:7:15:
+[37m      7 │   templateUrl: [32m'./app.html'[37m,
+        ╵                [32m~~~~~~~~~~~~[0m
+
+

@@ -1,1 +1,15 @@
-<p>login works!</p>
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <h3>Usuario:</h3>
+  <label>
+    <input type="text" formControlName="user" placeholder="Usuario" />
+  </label>
+
+  <h3>Contrasena:</h3>
+  <label>
+    <input type="password" formControlName="password" placeholder="Contrasena" />
+  </label>
+
+  <div class="sizeDivButton">
+    <button type="submit" class="login-button">Iniciar Sesion</button>
+  </div>
+</form>
