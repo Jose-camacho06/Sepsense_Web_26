@@ -1,4 +1,28 @@
-<form [formGroup]="form" (ngSubmit)="submit()">
+
+<div>
+    <p>Hola soy José</p>
+    <p> Como vamos?</p>
+
+    <div class="divSpan">
+    <span> Soy camacho</span>
+    <span>Bien y vos? </span>
+    </div>
+    <div class="sizeDivButton">
+        <button type="button" class="login_button" (click)="initLogin()">Iniciar Sesión</button>
+    </div>
+    <div> 
+        <h3> Usuario:</h3>
+        <input type="text"/>
+        <h3>Contraseña:</h3>
+        <input type="password"/>
+        
+    </div>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+        
+    </form>
+</div>
+
+<!-- <form [formGroup]="form" (ngSubmit)="submit()">
   <h3>Usuario:</h3>
   <label>
     <input type="text" formControlName="user" placeholder="Usuario" />
@@ -12,4 +36,4 @@
   <div class="sizeDivButton">
     <button type="submit" class="login-button">Iniciar Sesion</button>
   </div>
-</form>
+</form> -->
