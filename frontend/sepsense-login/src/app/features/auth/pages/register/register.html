@@ -1,4 +1,21 @@
 <div class="register-card">
     <h2>Regístrate</h2>
 
+    <form [formGroup]="form" (ngSubmit)="submit()">
+        <input type="email" formControlName="email" placeholder="Ingresa tu correo electrónico" />
+
+        <div class="passwordEye">
+            <input [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="Ingresa tu contraseña" />
+            <span (click)="showPassword = !showPassword">👁️</span>
+        </div>
+
+        <input type="password" formControlName="confirmPassword" placeholder="Confirma tu contraseña" />
+    </form>
+
+    <div class="sizeDivButton">
+        <button type="submit" class="login_button">Registrarse</button>
+    </div>
+    <div class="sizeDivButton">
+        <button type="button" class="login_button" routerLink="/login">Login</button>
+    </div>
 </div>
