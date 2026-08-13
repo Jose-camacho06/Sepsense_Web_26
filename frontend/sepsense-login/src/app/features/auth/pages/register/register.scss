@@ -1,3 +1,95 @@
+.register-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    background: linear-gradient(135deg, #a8d0f0, #f5c6dc);
+    padding: 0 40px;
+    position: relative;
+    overflow: hidden;
+    background-image: url(/register-image.png);
+    background-size: cover;
+    background-position: center;
+    justify-content: flex-start;
+}
+
+.register-card {
+    background: rgba(80,120,180,0.6);
+    padding: 40px;
+    width: 400px;
+    border-radius: 20px
+
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+h2 {
+    color: white;
+    font-size: 28px;
+    margin-bottom: 24px;
+    text-align: center;
+  }
+
+
+    input {
+    width: 100%;
+    padding: 18px 20px;
+    margin-bottom: 25px;
+    border: none;
+    border-radius: 10px;
+    background: white;
+    box-sizing: border-box;
+    font-size: 16px;
+  }
+
+  .sizeDivButton {
+    display: flex;
+    justify-content: center;
+}
+    .register_button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 24px;
+    background: var(--color-primary);
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    width:128px;
+  }
+
+  .login_button {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  background: var(--color-primary);
+  color: white;
+  padding: 10px 24px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.register-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
 .passwordEye {
     display: flex;
     align-items: center;
@@ -10,7 +102,10 @@
 
     span {
         position: absolute;
-        right: 12px;
+        right: 16px;
+        top: 38%;
+        transform: translateY(-50%);
         cursor: pointer;
+        font-size: 18px;
     }
 }
