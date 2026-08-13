@@ -22,22 +22,21 @@ export class Login {
     password: ['', Validators.required],
   });
 
-  // Cuando el usuario pulse "Ingresar"
+  
   ingresar() {
     if (this.form.valid) {
       this.router.navigate(['/home']);
+         
     } else {
-    
+      alert('Por favor, complete todos los campos requeridos.');
       this.form.markAllAsTouched();
     }
   }
 
-  // Navegar a la ruta de registro (ajusta al path real)
+  
   irRegistro() {
     this.router.navigate(['/registro']);
   }
-
-  // Navegar a recuperar contraseña (ajusta al path real)
   irOlvideContrasena() {
     this.router.navigate(['/recuperar-contrasena']);
   }

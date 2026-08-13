@@ -19,7 +19,6 @@ export class ForgotPassword {
     codigo: ['', Validators.required],
   });
 
-  // Cuando el usuario pulse "Ingresar"
   ingresar() {
     if (this.form.valid) {
       console.log(' contraseña recuperada')
