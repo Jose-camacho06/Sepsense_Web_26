@@ -15,6 +15,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 export class Login {
   private fb = inject(FormBuilder);
   private router = inject(Router);
+  showPassword = false;
 
   form = this.fb.group({
     user: ['', Validators.required],
@@ -26,7 +27,7 @@ export class Login {
     if (this.form.valid) {
       this.router.navigate(['/home']);
     } else {
-      // si quieres mostrar errores, aquí va la lógica simple
+    
       this.form.markAllAsTouched();
     }
   }

@@ -4,7 +4,11 @@
 
     <form [formGroup]="form" (ngSubmit)="ingresar()" class="form">
       <input formControlName="user" class="input" placeholder="Ingresa tu usuario" />
-      <input formControlName="password" class="input" type="password" placeholder="Ingresa tu contraseña" />
+
+     <div class="passwordEye">
+      <input [type]="showPassword ? 'text' : 'password'" class="input" formControlName="password" placeholder="Ingresa tu contraseña" />
+      <span (click)="showPassword = !showPassword">👁️</span>
+     </div>
 
       <div>
         <button type="button" class="link_button" (click)="irOlvideContrasena()">Olvidé mi contraseña</button>

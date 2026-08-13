@@ -32,4 +32,9 @@ export class ForgotPassword {
     this.router.navigate(['/registro']);
   }
 
+  reenviarCodigo() {
+    console.log('Código reenviado');
+    alert('Código reenviado');
+  }
+
 }

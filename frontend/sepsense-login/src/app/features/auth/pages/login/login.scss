@@ -102,3 +102,22 @@
   width: 100%;
   height: 100%;
 }
+
+.passwordEye {
+  position: relative;
+  width: 100%;
+
+  .input {
+    width: 100%;
+    padding-right: 40px;
+    box-sizing: border-box;
+  }
+
+  span {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+}
