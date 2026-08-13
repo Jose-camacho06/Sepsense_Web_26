@@ -2,12 +2,12 @@
   min-height: 100vh;
   display: flex;
   align-items: center;
-  padding-left: 5rem; /* empuja la card a la izquierda */
+  padding-left: 5rem; 
 }
 
 .card {
   width: 360px;
-  background: rgba(98, 167, 237, 0.85); /* azul suave */
+  background: rgba(106, 164, 250, 0.6);
   padding: 36px;
   border-radius: 20px;
   box-shadow: 0 12px 30px rgba(13, 57, 102, 0.15);
@@ -37,33 +37,41 @@
 }
 
 
-.links {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 6px;
-}
 
-.link_button {
-  background: none;
-  border: none;
-  color: rgba(255,255,255,0.95);
-  text-decoration: underline;
-  cursor: pointer;
-  padding: 0;
-  font-size: 0.9rem;
-}
 
 .login_button {
   margin-top: 12px;
   height: 44px;
   border-radius: 24px;
-  background: #ff5f9d; 
+  background: var(--color-primary); 
   color: white;
   border: none;
   cursor: pointer;
   font-weight: 700;
   
+}
+  .register_button {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  background: var(--color-primary);
+  color: white;
+  padding: 10px 24px;
+  border-radius: 20px;
+  border: none;
+  text-decoration: none;
+  font-weight: bold;
+}
+  ._button {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  background: var(--color-primary);
+  color: white;
+  padding: 10px 24px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: bold;
 }
 
 .divSpan{
@@ -82,8 +90,15 @@
 .link_button{
     background: none;
     border: none;
-    color: var(--color-primary);
+    color: #d40756;
     text-decoration: underline;
     cursor: pointer;
     font-size: 0.85rem;
+}
+.login-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }

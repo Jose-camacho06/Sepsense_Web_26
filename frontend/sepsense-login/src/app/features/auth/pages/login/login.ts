@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -23,10 +24,10 @@ export class Login {
   // Cuando el usuario pulse "Ingresar"
   ingresar() {
     if (this.form.valid) {
-      console.log('Login Iniciado')
       this.router.navigate(['/home']);
     } else {
-      //this.errorMessage = 'Usuario o contraseña inválido';;
+      // si quieres mostrar errores, aquí va la lógica simple
+      this.form.markAllAsTouched();
     }
   }
 

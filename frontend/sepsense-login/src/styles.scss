@@ -1,6 +1,6 @@
 /* src/styles.scss */
 :root {
-  --color-primary: #e91e8c;
+  --color-primary: #ff5f9d;
   --color-primary-dark: #1d4e89;
   --color-primary-soft: #fbe4f0;
   --color-secondary: #4fa8de;
@@ -32,12 +32,11 @@ html {
 }
 
 body {
- register-create
   margin: 0;
   padding: 0;
-  background-image: url('/assets/bg.jpg');
+  background-image: url('/login.png');
   background-size: cover;
   background-position: center right;
   background-repeat: no-repeat;
- main
+  background-attachment: fixed;
 }

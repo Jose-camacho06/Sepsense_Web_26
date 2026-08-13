@@ -6,13 +6,15 @@
       <input formControlName="user" class="input" placeholder="Ingresa tu usuario" />
       <input formControlName="password" class="input" type="password" placeholder="Ingresa tu contraseña" />
 
-      <div class="links">
+      <div>
         <button type="button" class="link_button" (click)="irOlvideContrasena()">Olvidé mi contraseña</button>
-        <button type="button" class="link_button" (click)="irRegistro()">Registrarse</button>
       </div>
 
       <button type="button" class="login_button" (click)="ingresar()">Ingresar</button>
-      
+       
+      <div class="sizeDivButton">
+        <button type="button" class="register_button" (click)="irRegistro()">Registrarse</button>
+     </div>
     </form>
   </div>
 </div>
