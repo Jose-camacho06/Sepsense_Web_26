@@ -1,21 +1,31 @@
-<div class="register-card">
-    <h2>Regístrate</h2>
+<div class="register-page">
 
-    <form [formGroup]="form" (ngSubmit)="submit()">
-        <input type="email" formControlName="email" placeholder="Ingresa tu correo electrónico" />
-
-        <div class="passwordEye">
-            <input [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="Ingresa tu contraseña" />
-            <span (click)="showPassword = !showPassword">👁️</span>
-        </div>
-
-        <input type="password" formControlName="confirmPassword" placeholder="Confirma tu contraseña" />
-    </form>
-
-    <div class="sizeDivButton">
-        <button type="submit" class="login_button">Registrarse</button>
-    </div>
     <div class="sizeDivButton">
         <button type="button" class="login_button" routerLink="/login">Login</button>
     </div>
+
+    <div class="register-card">
+        <h2>Regístrate</h2>
+
+        <form [formGroup]="form" (ngSubmit)="submit()">
+            <input type="email" formControlName="email" placeholder="Ingresa tu correo electrónico" />
+
+            <div class="passwordEye">
+                <input [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="Ingresa tu contraseña" />
+                <span (click)="showPassword = !showPassword">👁️</span>
+            </div>
+
+            <div class="passwordEye">
+                <input [type]="showConfirmPassword ? 'text' : 'password'" formControlName="confirmPassword" placeholder="Confirma tu contraseña" />
+                <span (click)="showConfirmPassword = !showConfirmPassword">👁️</span>
+            </div>
+        
+            
+
+        <div class="sizeDivButton">
+            <button type="submit" class="register_button" [disabled]="form.invalid" >Ingresar</button>
+        </div>
+        </form>
+    </div>
+
 </div>
