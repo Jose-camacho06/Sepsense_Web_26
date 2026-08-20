@@ -1,8 +1,12 @@
 import { Routes } from '@angular/router';
-export const routes: Routes = [
+import { authGuard } from './guards/auth.guards';
+export const routes: Routes= [
+
+
  
   {
     path: 'home',
+    canActivate: [authGuard],
     loadComponent: () =>
       import('./features/home/pages/home/home').then((component) => component.Home),
   },
@@ -22,6 +26,18 @@ export const routes: Routes = [
    import('./features/auth/pages/forgot-password/forgot-password').then(
     (component) => component.ForgotPassword,
    ),
+ },
+
+  {
+    path: 'perfil',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./features/home/pages/perfil/perfil').then((component) => component.Perfil),
+  },
+ {
+  path: '',
+  loadComponent: () =>
+   import('./features/auth/pages/register/register').then((component) => component.Register),
  },
  {
   path: '',
