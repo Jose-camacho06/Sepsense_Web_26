@@ -1,6 +1,5 @@
-import { Component, inject } from '@angular/core';
-import { NavigationEnd, Router, RouterLink } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { Component, inject , ChangeDetectorRef} from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -9,22 +8,23 @@ import { filter } from 'rxjs/operators';
   styleUrl: './header.scss',
 })
 export class Header {
-    private router = inject(Router);
-  titulo = 'Panel Principal';
+  private router = inject(Router);
+  private cdRef = inject(ChangeDetectorRef);
 
-  private titulos: Record<string, string> = {
-    '/home': 'Home',
-    '/perfil': 'Perfil',
-    '/dashboard': 'Dashboard',
-    '/usuarios': 'Usuarios',
-  
-};
-
-constructor() {
-  this.router.events
-    .pipe(filter((event) => event instanceof NavigationEnd))
-    .subscribe(() => {
-      this.titulo = this.titulos[this.router.url] || 'Panel Principal';
-    });
-}
+  get pageTitle() {
+    if (this.router.url.includes('usuarios')) {
+      this.cdRef.detectChanges();
+      return 'Usuarios';
+    }
+    if (this.router.url.includes('dashboard')) {
+      return 'Dashboard';
+    }
+    if (this.router.url.includes('perfil')) {
+      return 'Perfil';
+    }
+    if (this.router.url.includes('home')) {
+      return 'Home';
+    }
+    return 'Panel Principal';
+  }
 }

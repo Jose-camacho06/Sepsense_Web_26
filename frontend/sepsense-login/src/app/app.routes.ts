@@ -24,7 +24,7 @@ export const routes: Routes = [
     path: '',
     canActivate: [authGuard],
     loadComponent: () =>
-      import('./shared/main-layout/main-layout').then((component) => component.MainLayout),
+      import('./layouts/main-layout/main-layout').then((component) => component.MainLayout),
     children: [
       {
         path: 'home',
