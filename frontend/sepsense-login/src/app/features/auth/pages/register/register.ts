@@ -17,7 +17,8 @@ export class Register {
     email: ['', Validators.required, Validators.email],
     password: ['', Validators.required],
     confirmPassword: ['', Validators.required],
-  }, { validators: this.passwordsMatch });
+  }, 
+  { validators: this.passwordsMatch });
   
   passwordsMatch(form: any) {
   const password = form.get('password')?.value;
@@ -33,6 +34,6 @@ export class Register {
     sessionStorage.setItem('isLoggedIn', 'true');
 
     this.router.navigate(['/login']);
-  }
-}
+}}
+
 
