@@ -1,0 +1,12 @@
+:host {
+  display: block;
+  background: var(--color-secondary);
+  color: white;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+}

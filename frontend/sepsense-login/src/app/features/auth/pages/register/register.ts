@@ -14,7 +14,7 @@ export class Register {
   showConfirmPassword = false;
 
   form = this.fb.group({
-    email: ['', Validators.required],
+    email: ['', Validators.required, Validators.email],
     password: ['', Validators.required],
     confirmPassword: ['', Validators.required],
   }, 
@@ -29,6 +29,10 @@ export class Register {
   submit() {
     console.log('Formulario enviado', this.form.value);
     alert('Regsitrado con exito');
+
+    //CREAR SESSION STORAGE///
+    sessionStorage.setItem('isLoggedIn', 'true');
+
     this.router.navigate(['/login']);
 }}
 
