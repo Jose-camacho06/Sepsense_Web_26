@@ -1,5 +1,7 @@
-import { Component, inject , ChangeDetectorRef} from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Component, inject , signal} from '@angular/core';
+import { Router,NavigationEnd, RouterLink } from '@angular/router';
+import{filter} from 'rxjs';
+
 
 @Component({
   selector: 'app-header',
@@ -9,22 +11,32 @@ import { Router, RouterLink } from '@angular/router';
 })
 export class Header {
   private router = inject(Router);
-  private cdRef = inject(ChangeDetectorRef);
+  pageTitle = signal('Dashboard');
 
-  get pageTitle() {
-    if (this.router.url.includes('usuarios')) {
-      this.cdRef.detectChanges();
-      return 'Usuarios';
-    }
-    if (this.router.url.includes('dashboard')) {
-      return 'Dashboard';
-    }
-    if (this.router.url.includes('perfil')) {
-      return 'Perfil';
-    }
-    if (this.router.url.includes('home')) {
-      return 'Home';
-    }
-    return 'Panel Principal';
+
+  constructor(){
+    this.updatePageTitle();
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.updatePageTitle();
+    });
+  }
+
+private updatePageTitle() {
+  const url = this.router.url;
+  if (url.includes('usuarios')) {
+    this.pageTitle.set('Usuarios');
+    return;
+  }
+if (url.includes('dashboard')) {
+    this.pageTitle.set('Dashboard');
+    return;
+  }
+  if (url.includes('home')) {
+    this.pageTitle.set('Home');
+    return;
   }
 }
+}
+  
