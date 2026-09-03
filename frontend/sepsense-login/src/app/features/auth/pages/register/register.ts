@@ -17,7 +17,8 @@ export class Register {
     email: ['', Validators.required],
     password: ['', Validators.required],
     confirmPassword: ['', Validators.required],
-  }, { validators: this.passwordsMatch });
+  }, 
+  { validators: this.passwordsMatch });
   
   passwordsMatch(form: any) {
   const password = form.get('password')?.value;
@@ -29,6 +30,6 @@ export class Register {
     console.log('Formulario enviado', this.form.value);
     alert('Regsitrado con exito');
     this.router.navigate(['/login']);
-  }
-}
+}}
+
 

@@ -24,7 +24,7 @@ export class ForgotPassword {
       console.log(' contraseña recuperada')
       this.router.navigate(['/login']);
     } else {
-      //this.errorMessage = 'correo o código inválido';;
+      alert('Por favor, ingrese un correo electrónico y un codigo válido .');
     }
   }
   irRegistro() {
