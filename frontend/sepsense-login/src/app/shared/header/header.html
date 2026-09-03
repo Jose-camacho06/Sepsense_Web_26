@@ -1,9 +1,32 @@
 <header class="header">
-  <div class="header-left">Sepsense</div>
-
+  <div class="header-left">CES</div>
+ 
   <div class="header-center">
     {{ pageTitle() }}
   </div>
-
-  <div class="header-right" routerLink="/perfil">Mi Perfil</div>
+ 
+  <div class="header-right">
+    <button type="button" class="profile-button" (click)="toggleProfileMenu()">Perfil</button>
+    @if (showProfileMenu) {
+      <div type="button" class="profile-menu">
+        <button type="button" class="btn-profile-menu" (click)="openProfileModal()">Mi perfil</button>
+        <button type="button" class="sesion-menu" (click)="logout()">Cerrar sesión</button>
+      </div>
+      
+    }
+  </div>
 </header>
+
+@if (showProfileModal) {
+  <div class="modal-overlay">
+    <div class="profile-modal">
+      <h2>Mi Perfil</h2>
+      <p>Usuario Activo</p>
+      <p>Nombre: Dr Samuel</p>
+      <p>Apellido: Gallego</p>
+      <p>ID: 123456</p>
+      <button type="button" class="modal-close" (click)="closeProfileModal()">Cerrar</button>
+    </div>
+  </div>
+  
+}
