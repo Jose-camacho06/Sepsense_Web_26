@@ -1,14 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs';
- 
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-header',
- 
-  imports: [],
- 
+  imports: [RouterLink],
   templateUrl: './header.html',
- 
   styleUrl: './header.scss',
 })
 export class Header {
@@ -34,6 +31,10 @@ export class Header {
     }
     if (url.includes('dashboard')) {
       this.pageTitle.set('Dashboard');
+      return;
+    }
+    if (url.includes('home')) {
+      this.pageTitle.set('Home');
       return;
     }
   }
