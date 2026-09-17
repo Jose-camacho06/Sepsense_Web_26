@@ -1,6 +1,6 @@
 :host {
   display: block;
-  background: linear-gradient(135deg, var(--color-secondary), var(--color-primary-dark));
+  background: linear-gradient(80deg, var(--color-border), var(--color-primary-dark));
   color: white;
   box-shadow: 0 2px 12px rgba(0,0,0,0.12);
 }
@@ -15,9 +15,9 @@
 
 .header-left {
   cursor: pointer;
-  background: white;
-  border-radius: 50%;
-  width: 44px;
+  background: transparent;
+  border-radius: 0%;
+  width: 40px;
   height: 44px;
   display: flex;
   align-items: center;

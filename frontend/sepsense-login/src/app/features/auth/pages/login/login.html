@@ -3,11 +3,11 @@
     <h1 class="title">Inicio de Sesión</h1>
 
     <form [formGroup]="form" (ngSubmit)="ingresar()" class="form">
-      <input formControlName="user" class="input" placeholder="Ingresa tu usuario" />
+      <input formControlName="user" class="input" placeholder="Ingresa tu correo electrónico" />
 
      <div class="passwordEye">
       <input [type]="showPassword ? 'text' : 'password'" class="input" formControlName="password" placeholder="Ingresa tu contraseña" />
-      <span (click)="showPassword = !showPassword">👁️</span>
+      <span (click)="showPassword = !showPassword">👁️‍🗨️</span>
      </div>
 
       <div>
