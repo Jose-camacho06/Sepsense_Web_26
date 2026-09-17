@@ -12,5 +12,12 @@ export const LOGIN_USER_MOCK = [
         nombre: 'Roberto',
         apellido: 'Pérez',
         id: '654321',
+    },
+    {
+        email: 'gallegop.samuel@uces.edu.co',
+        password: '123',
+        nombre: 'Samuel',
+        apellido: 'Gallego',
+        id: '1',
     }
 ];

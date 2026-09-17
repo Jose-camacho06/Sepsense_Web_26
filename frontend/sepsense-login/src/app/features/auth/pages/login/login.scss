@@ -7,11 +7,11 @@
 
 .card {
   width: 360px;
-  background: rgba(106, 164, 250, 0.6);
+  background: rgba(237, 242, 252, 0.7);
   padding: 40px;
   border-radius: 20px;
-  box-shadow: 0 12px 30px rgba(13, 57, 102, 0.15);
-  color: white;
+  box-shadow: 8px 12px 30px rgba(0, 3, 7, 0.15);
+  color: var(--color-primary);
 }
 
 .title {
@@ -38,7 +38,6 @@
 
 
 
-
 .login_button {
   display: block;
   margin: 0.4REM auto;
@@ -47,15 +46,13 @@
     border: none;
     border-radius: 24px;
     background: var(--color-primary);
-    color: white;
+    color:var(--color-surface);
     font-weight: bold;
     font-size: 17px;
     cursor: pointer;
     width:128px;
-  }
-  .login_button:hover {
-    background: var(--color-primary-soft);
-    color: var(--color-primary);
+  }.login_button:hover {
+    background: var(--color-primary-dark);
   }
   .register_button {
   position: absolute;
@@ -69,8 +66,10 @@
   text-decoration: none;
   font-weight: bold;
   cursor: pointer;
+}.register_button:hover {
+  background: var(--color-primary-dark);
 }
-  ._button {
+._button {
   position: absolute;
   top: 24px;
   right: 24px;
