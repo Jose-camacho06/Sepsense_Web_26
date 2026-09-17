@@ -39,6 +39,7 @@ export class Login {
       return;
     }
     sessionStorage.setItem('isLoggedIn', 'true');
+    sessionStorage.setItem('usuarioActivo', JSON.stringify(userfound));
     this.router.navigate(['/home']);
   }
 

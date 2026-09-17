@@ -10,6 +10,7 @@ import { RouterLink } from '@angular/router';
 })
 export class Header {
   private router = inject(Router);
+  usuario = JSON.parse(sessionStorage.getItem('usuarioActivo') || '{}');
  
   pageTitle = signal('Dashboard');
  
