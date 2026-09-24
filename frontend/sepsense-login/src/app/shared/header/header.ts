@@ -10,7 +10,7 @@ import { RouterLink } from '@angular/router';
 })
 export class Header {
   private router = inject(Router);
-  usuario = JSON.parse(sessionStorage.getItem('usuarioActivo') || '{}');
+  user = JSON.parse(sessionStorage.getItem('userLoggeado') || '{}');
  
   pageTitle = signal('Dashboard');
  
@@ -36,6 +36,11 @@ export class Header {
     }
     if (url.includes('home')) {
       this.pageTitle.set('Home');
+      return;
+    }
+
+    if (url.includes('roles')) {
+      this.pageTitle.set('roles');
       return;
     }
   }

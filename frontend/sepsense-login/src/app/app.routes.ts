@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './guards/auth.guards';
+import { authDashboard } from './guards/auth.dashboard';
 
 export const routes: Routes = [
   {
@@ -32,12 +33,13 @@ export const routes: Routes = [
           import('./features/home/pages/home/home').then((component) => component.Home),
       },
       {
-        path: 'perfil',
+        path: 'roles',
         loadComponent: () =>
-          import('./features/home/pages/perfil/perfil').then((component) => component.Perfil),
+          import('./features/roles/pages/roles/roles').then((component) => component.Roles),
       },
         {
     path: 'dashboard',
+    canActivate: [authDashboard],
     loadComponent: () =>
       import('./features/dashboard/pages/dashboard/dashboard').then((component) => component.Dashboard),
   },

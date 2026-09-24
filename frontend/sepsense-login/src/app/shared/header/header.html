@@ -24,9 +24,11 @@
     <div class="profile-modal">
       <h2>Mi Perfil</h2>
       <p>Usuario Activo</p>
-      <p>Nombre: {{ usuario.nombre }}</p>
-      <p>Apellido: {{ usuario.apellido }}</p>
-      <p>ID: {{ usuario.id }}</p>
+      <p>Nombre: {{ user.nombre }}</p>
+      <p>Apellido: {{ user.apellido }}</p>
+      <p>ID: {{ user.id }}</p>
+      <p>Rol: {{ user.rol}}</p>
+
       
       <button type="button" class="modal-close" (click)="closeProfileModal()">Cerrar</button>
     </div>

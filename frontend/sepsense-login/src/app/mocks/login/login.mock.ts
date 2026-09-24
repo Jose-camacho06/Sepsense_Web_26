@@ -5,6 +5,7 @@ export const LOGIN_USER_MOCK = [
         nombre: 'Doctor',
         apellido: 'Menges',
         id: '123456',
+        rol: 'admin',
     },
     {
         email: 'roberto@uces.edu.co',
@@ -12,12 +13,27 @@ export const LOGIN_USER_MOCK = [
         nombre: 'Roberto',
         apellido: 'Pérez',
         id: '654321',
+        rol:'teacher',
     },
     {
-        email: 'gallegop.samuel@uces.edu.co',
+        email: 'galle@uces.com',
         password: '123',
         nombre: 'Samuel',
         apellido: 'Gallego',
         id: '1',
+        rol:'student'
+
+    },
+
+        {
+        email: 'jose@uces.com',
+        password: '1234',
+        nombre: 'Jose',
+        apellido: 'Gallego',
+        id: '3',
+        rol:'doctor'
+
     }
+
+
 ];

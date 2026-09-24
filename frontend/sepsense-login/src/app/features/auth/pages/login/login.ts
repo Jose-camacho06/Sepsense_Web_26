@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LOGIN_USER_MOCK } from '../../../../mocks/login/login.mock';
+import { ROL_USER_MOCK } from '../../../../mocks/login/roles.mock';
 
 @Component({
   selector: 'app-login',
@@ -38,8 +39,10 @@ export class Login {
       alert('Usuario o contraseña incorrectos');
       return;
     }
+
     sessionStorage.setItem('isLoggedIn', 'true');
-    sessionStorage.setItem('usuarioActivo', JSON.stringify(userfound));
+    sessionStorage.setItem('usuarioActivo', userfound.rol);
+    sessionStorage.setItem('userLoggeado', JSON.stringify(userfound))
     this.router.navigate(['/home']);
   }
 
