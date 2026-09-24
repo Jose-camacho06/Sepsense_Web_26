@@ -1,15 +1,26 @@
-<form [formGroup]="form" (ngSubmit)="submit()">
-  <h3>Usuario:</h3>
-  <label>
-    <input type="text" formControlName="user" placeholder="Usuario" />
-  </label>
+<div class="page">
+  <div class="card">
+    <h1 class="title">Inicio de Sesión</h1>
 
-  <h3>Contrasena:</h3>
-  <label>
-    <input type="password" formControlName="password" placeholder="Contrasena" />
-  </label>
+    <form [formGroup]="form" (ngSubmit)="ingresar()" class="form">
+      <input formControlName="user" class="input" placeholder="Ingresa tu correo electrónico" />
 
-  <div class="sizeDivButton">
-    <button type="submit" class="login-button">Iniciar Sesion</button>
+     <div class="passwordEye">
+      <input [type]="showPassword ? 'text' : 'password'" class="input" formControlName="password" placeholder="Ingresa tu contraseña" />
+      <span (click)="showPassword = !showPassword">👁️‍🗨️</span>
+     </div>
+
+      <div>
+        <button type="button" class="link_button" (click)="irOlvideContrasena()">Olvidé mi contraseña</button>
+      </div>
+
+      <button type="button" class="login_button" (click)="ingresar()">Ingresar</button>
+       
+      <div class="sizeDivButton">
+        <button type="button" class="register_button" (click)="irRegistro()">Registrarse</button>
+     </div>
+    </form>
   </div>
-</form>
+</div>
+
+

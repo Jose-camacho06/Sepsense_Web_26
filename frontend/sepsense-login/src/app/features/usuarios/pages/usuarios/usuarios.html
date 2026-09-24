@@ -1,0 +1,16 @@
+<p>Nombres
+  <br>
+  <span *ngFor="let usuario of usuarios">
+    {{ usuario.nombre }} {{ usuario.apellido }}<br>
+  </span>
+</p>
+
+<p>Email
+  <br>
+  <span *ngFor="let usuario of usuarios">
+    {{ usuario.email }}<br>
+  </span>
+</p>
+
+
+<button type="button" routerLink="/home">Ir a Home</button>

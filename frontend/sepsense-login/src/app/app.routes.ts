@@ -1,19 +1,17 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './guards/auth.guards';
+import { authDashboard } from './guards/auth.dashboard';
 
 export const routes: Routes = [
   {
     path: 'login',
     loadComponent: () =>
-      import('./features/auth/pages/login/login').then(
-        (component) => component.Login,
-      ),
+      import('./features/auth/pages/login/login').then((component) => component.Login),
   },
   {
     path: 'registro',
     loadComponent: () =>
-      import('./features/auth/pages/register/register').then(
-        (component) => component.Register,
-      ),
+      import('./features/auth/pages/register/register').then((component) => component.Register),
   },
   {
     path: 'recuperar-contrasena',
@@ -22,13 +20,38 @@ export const routes: Routes = [
         (component) => component.ForgotPassword,
       ),
   },
+
   {
-    path: 'home',
+    path: '',
+    canActivate: [authGuard],
     loadComponent: () =>
-      import('./features/home/pages/home/home').then(
-        (component) => component.Home,
-      ),
+      import('./layouts/main-layout/main-layout').then((component) => component.MainLayout),
+    children: [
+      {
+        path: 'home',
+        loadComponent: () =>
+          import('./features/home/pages/home/home').then((component) => component.Home),
+      },
+      {
+        path: 'roles',
+        loadComponent: () =>
+          import('./features/roles/pages/roles/roles').then((component) => component.Roles),
+      },
+        {
+    path: 'dashboard',
+    canActivate: [authDashboard],
+    loadComponent: () =>
+      import('./features/dashboard/pages/dashboard/dashboard').then((component) => component.Dashboard),
   },
+  {
+    path: 'usuarios',
+    loadComponent: () =>
+      import('./features/usuarios/pages/usuarios/usuarios').then((component) => component.Usuarios),
+  },
+
+    ],
+  },
+
   {
     path: '',
     pathMatch: 'full',

@@ -1,38 +1,55 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
- 
+import { LOGIN_USER_MOCK } from '../../../../mocks/login/login.mock';
+import { ROL_USER_MOCK } from '../../../../mocks/login/roles.mock';
+
 @Component({
   selector: 'app-login',
+  standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './login.html',
-  styleUrl: './login.scss',
+  styleUrls: ['./login.scss'],
 })
 export class Login {
   private fb = inject(FormBuilder);
   private router = inject(Router);
- 
-  userTest = 'Jesus';
-  password = '1234567';
- 
+  showPassword = false;
+
   form = this.fb.group({
     user: ['', Validators.required],
-    //email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
   });
- 
-  initLogin() {
-    console.log('Login initialized');
-    //window.location.href = '/home';
+
+  ingresar() {
+    if (this.form.invalid) {
+      alert('Por favor, complete todos los campos requeridos.');
+      this.form.markAllAsTouched();
+      return;
+    }
+
+    const email = this.form.value.user;
+    const password = this.form.value.password;
+    console.log(email,password);
+    const userfound = LOGIN_USER_MOCK.find(
+      (user) => user.email === email && user.password === password
+    );
+    console.log(userfound)
+    if (!userfound) {
+      alert('Usuario o contraseña incorrectos');
+      return;
+    }
+
+    sessionStorage.setItem('isLoggedIn', 'true');
+    sessionStorage.setItem('usuarioActivo', userfound.rol);
+    sessionStorage.setItem('userLoggeado', JSON.stringify(userfound))
     this.router.navigate(['/home']);
   }
- 
-  submit(){
-    if (this.form.valid) {
-      console.log('Form submitted', this.form.value);
-      // Handle form submission logic here
-      this.router.navigate(['/home']);
-    }
-    }
+
+  irRegistro() {
+    this.router.navigate(['/registro']);
+  }
+  irOlvideContrasena() {
+    this.router.navigate(['/recuperar-contrasena']);
+  }
 }
- 

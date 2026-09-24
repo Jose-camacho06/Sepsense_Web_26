@@ -1,0 +1,37 @@
+<header class="header">
+  <div class="header-left" routerLink="/home">
+  <img src="/favicon.ico" alt="Sepsense" class="logo" />
+</div>
+ 
+  <div class="header-center">
+    {{ pageTitle() }}
+  </div>
+ 
+  <div class="header-right">
+    <button type="button" class="profile-button" (click)="toggleProfileMenu()">Perfil</button>
+    @if (showProfileMenu) {
+      <div type="button" class="profile-menu">
+        <button type="button" class="btn-profile-menu" (click)="openProfileModal()">Mi perfil</button>
+        <button type="button" class="sesion-menu" (click)="logout()">Cerrar sesión</button>
+      </div>
+      
+    }
+  </div>
+</header>
+
+@if (showProfileModal) {
+  <div class="modal-overlay">
+    <div class="profile-modal">
+      <h2>Mi Perfil</h2>
+      <p>Usuario Activo</p>
+      <p>Nombre: {{ user.nombre }}</p>
+      <p>Apellido: {{ user.apellido }}</p>
+      <p>ID: {{ user.id }}</p>
+      <p>Rol: {{ user.rol}}</p>
+
+      
+      <button type="button" class="modal-close" (click)="closeProfileModal()">Cerrar</button>
+    </div>
+  </div>
+  
+}

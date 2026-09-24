@@ -1,13 +1,13 @@
 /* src/styles.scss */
 :root {
-  --color-primary: #e91e8c;
+  --color-primary: #ff5f9d;
   --color-primary-dark: #1d4e89;
-  --color-primary-soft: #fbe4f0;
+  --color-primary-soft: #f5cae0;
   --color-secondary: #4fa8de;
-  --color-background: #f5f8fc;
+  --color-background: #eff6ff;
   --color-surface: #ffffff;
   --color-text: #16324d;
-  --color-text-muted: #64748b;
+  --color-text-muted: #97b0d3;
   --color-border: #d8e1ea;
 
   --color-success: #1f7a4d;
@@ -29,4 +29,14 @@ html {
   font-family:
     Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: var(--color-text);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url('/login.png');
+  background-size: cover;
+  background-position: center right;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
