@@ -15,7 +15,7 @@ def solicitar_codigo_service(email):
 
     print(f'Código de recuperación para {email}: {codigo}')  # Simula el "envío"
 
-    return {'message': 'Código enviado'}
+    return {'message': 'Código enviado', 'codigo': codigo}
 
 
 def validar_codigo_service(email, codigo, nueva_contrasena, confirmar_contrasena):

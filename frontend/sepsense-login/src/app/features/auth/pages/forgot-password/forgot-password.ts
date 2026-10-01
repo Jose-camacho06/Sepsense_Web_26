@@ -17,6 +17,8 @@ export class ForgotPassword {
   form = this.fb.group({
     email: ['', Validators.email],
     codigo: ['', Validators.required],
+    nuevaContrasena: ['', Validators.required],
+    confirmarContrasena: ['', Validators.required],
   });
 
   ingresar() {

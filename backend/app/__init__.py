@@ -5,6 +5,7 @@ from app.extensions import db, migrate
 from app.routes.login.route import login_bp
 from app.routes.register.route import register_bp
 from app.routes.forgot_password.route import forgot_password_bp
+from app.routes.actualizar_usuario.route import users_bp
 
 def create_app():
     app = Flask(__name__)
@@ -17,4 +18,5 @@ def create_app():
     app.register_blueprint(login_bp)
     app.register_blueprint(register_bp)
     app.register_blueprint(forgot_password_bp)
+    app.register_blueprint(users_bp)
     return app
