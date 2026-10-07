@@ -1,8 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { LOGIN_USER_MOCK } from '../../../../mocks/login/login.mock';
-import { ROL_USER_MOCK } from '../../../../mocks/login/roles.mock';
+import { AuthService } from '../../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +13,7 @@ import { ROL_USER_MOCK } from '../../../../mocks/login/roles.mock';
 export class Login {
   private fb = inject(FormBuilder);
   private router = inject(Router);
+  private authService = inject(AuthService);
   showPassword = false;
 
   form = this.fb.group({
@@ -28,22 +28,18 @@ export class Login {
       return;
     }
 
-    const email = this.form.value.user;
-    const password = this.form.value.password;
-    console.log(email,password);
-    const userfound = LOGIN_USER_MOCK.find(
-      (user) => user.email === email && user.password === password
-    );
-    console.log(userfound)
-    if (!userfound) {
-      alert('Usuario o contraseña incorrectos');
-      return;
-    }
+    const email = this.form.value.user ?? '';
+    const password = this.form.value.password ?? '';
 
-    sessionStorage.setItem('isLoggedIn', 'true');
-    sessionStorage.setItem('usuarioActivo', userfound.rol);
-    sessionStorage.setItem('userLoggeado', JSON.stringify(userfound))
-    this.router.navigate(['/home']);
+    this.authService.login(email, password).subscribe({
+      next: (response) => {
+        this.authService.saveSession(response);
+        this.router.navigate(['/home']);
+      },
+      error: (error) => {
+        alert(error.error?.message ?? 'Usuario o contraseña incorrectos');
+      },
+    });
   }
 
   irRegistro() {
