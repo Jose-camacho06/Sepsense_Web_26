@@ -62,23 +62,13 @@ export class AuthService {
     );
   }
 
-  register(data: {
-    identification: string;
-
-    first_name: string;
-
-    last_name: string;
-
-    email: string;
-
-    password: string;
-  }) {
-    return this.http.post<any>(
-      `${API_URL}/auth/register`,
-
-      data,
-    );
-  }
+register(data: {
+  email: string;
+  password: string;
+  confirmPassword: string;
+}) {
+  return this.http.post<any>(`${API_URL}/auth/register`, data);
+}
 
   saveSession(response: LoginResponse) {
     sessionStorage.setItem(
@@ -98,6 +88,9 @@ export class AuthService {
 
       JSON.stringify(response.user),
     );
+    sessionStorage.setItem('isLoggedIn', 'true');
+    sessionStorage.setItem('usuarioActivo', response.user.role);
+    sessionStorage.setItem('userLoggeado', JSON.stringify(response.user));
   }
 
   getAccessToken() {
@@ -148,5 +141,11 @@ export class AuthService {
     sessionStorage.removeItem('refresh_token');
 
     sessionStorage.removeItem('current_user');
+
+    sessionStorage.removeItem('isLoggedIn');
+
+    sessionStorage.removeItem('usuarioActivo');
+    
+    sessionStorage.removeItem('userLoggeado');
   }
 }

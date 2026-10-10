@@ -1,8 +1,78 @@
-<p>Rol
-  <br>
-  <span *ngFor="let rol of roles">
-    {{ rol.rol }}<br>
-  </span>
-</p>
+<div class="page-content">
+  <div class="page-header">
+    <div>
+      <h1>Roles</h1>
+      <p>Administración de roles de la aplicación.</p>
+    </div>
+  </div>
 
+  @if (message) {
+    <div class="message">{{ message }}</div>
+  }
 
+  <section class="form-card">
+    <h2>{{ selectedRoleId ? 'Editar rol' : 'Nuevo rol' }}</h2>
+
+    <form [formGroup]="form" (ngSubmit)="save()">
+      <div class="form-grid">
+        <div class="field">
+          <label>Nombre</label>
+          <input type="text" formControlName="name" />
+        </div>
+
+        <div class="field">
+          <label>Descripción</label>
+          <input type="text" formControlName="description" />
+        </div>
+
+        <label class="check-field">
+          <input type="checkbox" formControlName="is_active" />
+          Activo
+        </label>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-primary" [disabled]="isSaving">
+          {{ isSaving ? 'Guardando...' : 'Guardar' }}
+        </button>
+        @if (selectedRoleId) {
+          <button type="button" class="btn-secondary" (click)="cancelEdit()">Cancelar</button>
+        }
+      </div>
+    </form>
+  </section>
+
+  <section class="table-card">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Rol</th>
+          <th>Descripción</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (role of roles; track role.id) {
+          <tr>
+            <td>{{ role.id }}</td>
+            <td>{{ role.name }}</td>
+            <td>{{ role.description || '-' }}</td>
+            <td>
+              <span class="status" [class.inactive]="!role.is_active">
+                {{ role.is_active ? 'Activo' : 'Inactivo' }}
+              </span>
+            </td>
+            <td class="actions">
+              <button type="button" (click)="edit(role)">Editar</button>
+              <button type="button" [disabled]="!role.is_active" (click)="deactivate(role)">
+                Inactivar
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </section>
+</div>

@@ -1,0 +1,110 @@
+.page-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+ 
+.page-content h1 {
+  margin: 0;
+  color: #003b71;
+}
+ 
+.page-content p {
+  color: #667085;
+}
+ 
+.form-card,
+.table-card {
+  padding: 24px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow:
+    0 4px 14px
+    rgba(0, 0, 0, 0.08);
+}
+ 
+.form-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+ 
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+ 
+.field input {
+  padding: 10px 12px;
+  border:
+    1px solid #d0d5dd;
+  border-radius: 8px;
+}
+ 
+.check-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+ 
+.form-actions,
+.actions {
+  display: flex;
+  gap: 10px;
+}
+ 
+.form-actions {
+  margin-top: 20px;
+}
+ 
+.btn-primary {
+  background-color: #003b71;
+  color: white;
+  border: 0;
+  border-radius: 8px;
+  padding: 10px 16px;
+}
+ 
+.btn-secondary {
+  background-color: #e4e7ec;
+  color: #344054;
+  border: 0;
+  border-radius: 8px;
+  padding: 10px 16px;
+}
+ 
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+ 
+.data-table th,
+.data-table td {
+  padding: 12px;
+  border-bottom:
+    1px solid #eaecf0;
+  text-align: left;
+}
+ 
+.data-table th {
+  background-color: #003b71;
+  color: white;
+}
+ 
+.status {
+  font-weight: 600;
+  color: #067647;
+}
+ 
+.status.inactive {
+  color: #b42318;
+}
+ 
+.message {
+  padding: 12px 16px;
+  background-color: #eaf4fb;
+  color: #003b71;
+  border-radius: 8px;
+}

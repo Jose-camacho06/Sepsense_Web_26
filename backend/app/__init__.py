@@ -5,11 +5,15 @@ from werkzeug.exceptions import HTTPException
 from config import Config
 from app.extensions import db, migrate, jwt
 from app.models import TokenBlocklist
+from app.common.api import APIError
 
 from app.routes.login.route import login_bp
 from app.routes.register.route import register_bp
 from app.routes.forgot_password.route import forgot_password_bp
 from app.routes.actualizar_usuario.route import users_bp
+from app.routes.users.route import users_bp as admin_users_bp
+from app.routes.roles.route import roles_bp
+from app.routes.dashboard.route import dashboard_bp
 
 
 def create_app(test_config=None):
@@ -28,7 +32,7 @@ def create_app(test_config=None):
     jwt.init_app(app)
     CORS(app, resources={r'/api/*': {'origins': app.config['CORS_ORIGINS']}}, allow_headers=['Content-Type', 'Authorization'])
 
-    for blueprint in (login_bp, register_bp, forgot_password_bp, users_bp):
+    for blueprint in (login_bp, register_bp, forgot_password_bp, users_bp, admin_users_bp, roles_bp, dashboard_bp):
         app.register_blueprint(blueprint)
 
     def failure(message, status):
@@ -53,6 +57,11 @@ def create_app(test_config=None):
     @jwt.revoked_token_loader
     def blocked(header, payload):
         return failure('El token fue revocado.', 401)
+
+    @app.errorhandler(APIError)
+    def api_error(error):
+        db.session.rollback()
+        return failure(error.message, error.status)
 
     @app.errorhandler(IntegrityError)
     def conflict(error):
