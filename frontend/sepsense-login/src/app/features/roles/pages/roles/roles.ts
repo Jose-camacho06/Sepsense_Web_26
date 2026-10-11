@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Role, RolesService } from '../../../../services/roles/roles.service';
 
@@ -11,6 +11,7 @@ import { Role, RolesService } from '../../../../services/roles/roles.service';
 export class Roles {
   private fb = inject(FormBuilder);
   private rolesService = inject(RolesService);
+  private cdr = inject(ChangeDetectorRef);
 
   roles: Role[] = [];
   selectedRoleId: number | null = null;
@@ -31,9 +32,11 @@ export class Roles {
     this.rolesService.list().subscribe({
       next: (response) => {
         this.roles = response.roles;
+        this.cdr.markForCheck();
       },
       error: (error) => {
         this.message = error.error?.message ?? 'No fue posible consultar los roles.';
+        this.cdr.markForCheck();
       },
     });
   }
@@ -62,10 +65,12 @@ export class Roles {
         this.cancelEdit();
         this.loadRoles();
         this.isSaving = false;
+        this.cdr.markForCheck();
       },
       error: (error) => {
         this.message = error.error?.message ?? 'No fue posible guardar el rol.';
         this.isSaving = false;
+        this.cdr.markForCheck();
       },
     });
   }
@@ -92,9 +97,11 @@ export class Roles {
       next: (response) => {
         this.message = response.message;
         this.loadRoles();
+        this.cdr.markForCheck();
       },
       error: (error) => {
         this.message = error.error?.message ?? 'No fue posible inactivar el rol.';
+        this.cdr.markForCheck();
       },
     });
   }
