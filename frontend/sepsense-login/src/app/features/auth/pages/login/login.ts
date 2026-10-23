@@ -2,11 +2,12 @@ import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../../services/auth/auth.service';
+import { EyeIcon } from '../../../../shared/components/eye-icon/eye-icon';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, EyeIcon],
   templateUrl: './login.html',
   styleUrls: ['./login.scss'],
 })

@@ -1,14 +1,49 @@
-button {
-  background: var(--color-primary);
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 20px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s;
+.search-card {
+  display: flex;
+  gap: 12px;
+  padding: 16px 20px;
 
-  &:hover {
-    background: var(--color-primary-dark);
+  input {
+    flex: 1;
+    height: 44px;
+    padding: 0 14px;
+    border: 1px solid var(--sp-border);
+    border-radius: 10px;
+    font: inherit;
+  }
+}
+
+select {
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid var(--sp-border);
+  border-radius: 8px;
+  font: inherit;
+  color: var(--sp-ink);
+  background: #fff;
+}
+
+.pager {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px 6px;
+  color: var(--sp-muted);
+  font-size: 0.9rem;
+
+  button {
+    margin-left: 8px;
+    padding: 6px 14px;
+    border: 1px solid var(--sp-border);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--sp-navy);
+    cursor: pointer;
+
+    &:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
   }
 }

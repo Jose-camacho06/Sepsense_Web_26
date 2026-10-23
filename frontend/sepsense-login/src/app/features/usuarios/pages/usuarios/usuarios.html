@@ -1,16 +1,68 @@
-<p>Nombres
-  <br>
-  <span *ngFor="let usuario of usuarios">
-    {{ usuario.nombre }} {{ usuario.apellido }}<br>
-  </span>
-</p>
+<div class="page-content">
+  <div class="page-header">
+    <div>
+      <h1>Usuarios</h1>
+      <p>Cuentas registradas en la plataforma.</p>
+    </div>
+  </div>
 
-<p>Email
-  <br>
-  <span *ngFor="let usuario of usuarios">
-    {{ usuario.email }}<br>
-  </span>
-</p>
+  @if (message) {
+    <div class="message">{{ message }}</div>
+  }
 
+  <section class="form-card search-card">
+    <input #box type="search" placeholder="Buscar por nombre o correo" (keyup.enter)="onSearch(box.value)" />
+    <button type="button" class="btn-primary" (click)="onSearch(box.value)">Buscar</button>
+  </section>
 
-<button type="button" routerLink="/home">Ir a Home</button>
+  <section class="table-card">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Correo</th>
+          <th>Rol</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (user of users; track user.id) {
+          <tr>
+            <td>{{ user.first_name }} {{ user.last_name }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+              <select (change)="changeRole(user, $any($event.target).value)">
+                @for (role of roles; track role.id) {
+                  <option [value]="role.id" [selected]="role.id === user.role_id" [disabled]="!role.is_active">
+                    {{ role.name }}
+                  </option>
+                }
+              </select>
+            </td>
+            <td>
+              <span class="status" [class.inactive]="!user.is_active">
+                {{ user.is_active ? 'Activo' : 'Inactivo' }}
+              </span>
+            </td>
+            <td class="actions">
+              <button type="button" (click)="toggleActive(user)">
+                {{ user.is_active ? 'Desactivar' : 'Activar' }}
+              </button>
+            </td>
+          </tr>
+        } @empty {
+          <tr><td colspan="5">No hay usuarios para mostrar.</td></tr>
+        }
+      </tbody>
+    </table>
+
+    <div class="pager">
+      <span>{{ total }} usuarios · página {{ page }} de {{ pages }}</span>
+      <div>
+        <button type="button" (click)="goTo(page - 1)" [disabled]="page <= 1">Anterior</button>
+        <button type="button" (click)="goTo(page + 1)" [disabled]="page >= pages">Siguiente</button>
+      </div>
+    </div>
+  </section>
+</div>

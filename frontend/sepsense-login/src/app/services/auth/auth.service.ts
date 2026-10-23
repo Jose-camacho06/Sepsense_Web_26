@@ -69,6 +69,13 @@ register(data: {
 }) {
   return this.http.post<any>(`${API_URL}/auth/register`, data);
 }
+forgotPassword(email: string) {
+  return this.http.post<{ message: string; codigo?: string }>(`${API_URL}/auth/forgot-password`, { email });
+}
+
+resetPassword(data: { email: string; codigo: string; nuevaContrasena: string; confirmarContrasena: string }) {
+  return this.http.post<{ message: string }>(`${API_URL}/auth/reset-password`, data);
+}
 
   saveSession(response: LoginResponse) {
     sessionStorage.setItem(

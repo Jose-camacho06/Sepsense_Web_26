@@ -1,0 +1,63 @@
+<div class="page-content">
+  <section class="hero">
+    <div class="badge">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z" />
+        <path d="M9 12l2 2 4-4" />
+      </svg>
+      ADMINISTRADOR
+    </div>
+    <h1>Bienvenido, {{ name }}</h1>
+    <p>Tienes el control de Sepsense: usuarios, roles y configuración de la plataforma.</p>
+    <span class="date">{{ today }}</span>
+  </section>
+
+  @if (stats) {
+    <section class="stats">
+      <div class="stat"><span>Usuarios</span><strong>{{ stats.total_users }}</strong></div>
+      <div class="stat"><span>Activos</span><strong>{{ stats.active_users }}</strong></div>
+      <div class="stat"><span>Inactivos</span><strong>{{ stats.inactive_users }}</strong></div>
+      <div class="stat"><span>Roles activos</span><strong>{{ stats.active_roles }}</strong></div>
+    </section>
+  }
+
+  <h2 class="section-title">Accesos rápidos</h2>
+  <section class="actions-grid">
+    <a class="action" routerLink="/usuarios">
+      <span class="icon">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="9" cy="8" r="3.5" /><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6" />
+          <circle cx="17" cy="9" r="2.5" /><path d="M17 14c2.7 0 4.5 1.8 4.5 4.5" />
+        </svg>
+      </span>
+      <strong>Usuarios</strong>
+      <span>Cambia roles y activa o desactiva cuentas.</span>
+    </a>
+    <a class="action" routerLink="/roles">
+      <span class="icon">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="5" y="11" width="14" height="9" rx="2" /><path d="M8 11V8a4 4 0 018 0v3" />
+        </svg>
+      </span>
+      <strong>Roles</strong>
+      <span>Crea, edita e inactiva los roles del sistema.</span>
+    </a>
+    <a class="action" routerLink="/dashboard">
+      <span class="icon">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 20V4" /><path d="M4 20h16" /><path d="M8 16v-5M12 16V8M16 16v-3" />
+        </svg>
+      </span>
+      <strong>Dashboard</strong>
+      <span>Estadísticas globales de la plataforma.</span>
+    </a>
+  </section>
+
+  <h2 class="section-title">Tus permisos</h2>
+  <section class="chips">
+    <span>Gestionar usuarios</span>
+    <span>Asignar roles</span>
+    <span>Habilitar o inactivar roles</span>
+    <span>Ver estadísticas globales</span>
+  </section>
+</div>

@@ -27,10 +27,10 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./layouts/main-layout/main-layout').then((component) => component.MainLayout),
     children: [
-      {
+    {
         path: 'home',
         loadComponent: () =>
-          import('./features/home/pages/home/home').then((component) => component.Home),
+          import('./features/home/pages/home/home_admin/home').then((component) => component.HomeAdmin),
       },
       {
         path: 'roles',
@@ -41,7 +41,7 @@ export const routes: Routes = [
     path: 'dashboard',
     canActivate: [authDashboard],
     loadComponent: () =>
-      import('./features/dashboard/pages/dashboard/dashboard').then((component) => component.Dashboard),
+      import('./features/dashboard/pages/dashboard/dashboard_admin/dashboard').then((component) => component.Dashboard),
   },
   {
     path: 'usuarios',

@@ -2,10 +2,11 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
 import { AuthService } from '../../../../services/auth/auth.service';
+import { EyeIcon } from '../../../../shared/components/eye-icon/eye-icon';
 
 @Component({
   selector: 'app-register',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, EyeIcon],
   templateUrl: './register.html',
   styleUrl: './register.scss',
 })

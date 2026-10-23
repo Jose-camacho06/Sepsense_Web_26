@@ -12,15 +12,17 @@
 
             <div class="passwordEye">
                 <input [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="Ingresa tu contraseña" />
-                <span (click)="showPassword = !showPassword">👁️‍🗨️</span>
+                <span (click)="showPassword = !showPassword">
+                    <app-eye-icon [open]="showPassword" />
+                </span>
             </div>
 
             <div class="passwordEye">
                 <input [type]="showConfirmPassword ? 'text' : 'password'" formControlName="confirmPassword" placeholder="Confirma tu contraseña" />
-                <span (click)="showConfirmPassword = !showConfirmPassword">👁️‍🗨️</span>
+                <span (click)="showConfirmPassword = !showConfirmPassword">
+                    <app-eye-icon [open]="showConfirmPassword" />
+                </span>
             </div>
-        
-            
 
         <div class="sizeDivButton">
             <button type="submit" class="register_button" [disabled]="form.invalid" >Ingresar</button>
