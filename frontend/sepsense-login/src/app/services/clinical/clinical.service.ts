@@ -18,6 +18,7 @@ export interface Reading {
   qsofa: number | null;
   shock_index: number | null;
   modified_shock_index: number | null;
+  news2_points: Record<string, number>;
   source: string;
   created_at: string;
 }

@@ -28,7 +28,29 @@
         <div class="card highlight"><span>Índice de shock</span><strong>{{ last.shock_index ?? '—' }}</strong></div>
         <div class="card highlight"><span>Índice de shock mod.</span><strong>{{ last.modified_shock_index ?? '—' }}</strong></div>
       </section>
+      @if (clinicalResponse) {
+        <section class="response" [class]="'response ' + clinicalResponse.level">
+          <strong>{{ clinicalResponse.title }}</strong>
+          <p>{{ clinicalResponse.text }}</p>
+          <span>Referencia: guía NEWS2. La decisión final corresponde al equipo clínico.</span>
+        </section>
+      }
 
+      <h2 class="section-title">¿Por qué este NEWS2?</h2>
+      <section class="table-card breakdown">
+        @for (row of breakdown; track row.label) {
+          <div class="breakdown-row">
+            <span class="label">{{ row.label }}</span>
+            <span class="value">{{ row.value }}</span>
+            <span class="points" [class]="'points p' + row.points">+{{ row.points }}</span>
+          </div>
+        }
+        <div class="breakdown-row total">
+          <span class="label">Total NEWS2</span>
+          <span class="value"></span>
+          <span class="points">{{ last.news2 ?? '—' }}</span>
+        </div>
+      </section>
       <h2 class="section-title">Signos vitales</h2>
       <section class="cards">
         <div class="card"><span>Frec. cardíaca</span><strong>{{ last.heart_rate ?? '—' }} <small>lpm</small></strong></div>

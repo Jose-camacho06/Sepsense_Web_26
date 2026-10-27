@@ -71,6 +71,13 @@ export const routes: Routes = [
     import('./features/dashboard/pages/dashboard_clinico/dashboard_clinico').then((c) => c.DashboardClinico),
 },
 
+{
+  path: 'alertas',
+  canActivate: [clinicalGuard],
+  loadComponent: () =>
+    import('./features/alertas/pages/alertas/alertas').then((c) => c.Alertas),
+},
+
     ],
   },
 

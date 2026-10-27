@@ -1,0 +1,53 @@
+<div class="page-content">
+  <div class="page-header">
+    <h1>Alertas</h1>
+    <p>De la más grave a la menos grave. Se actualiza cada 15 segundos.</p>
+  </div>
+
+  @if (message) {
+    <div class="message">{{ message }}</div>
+  }
+
+  <div class="tabs" role="group" aria-label="Filtrar alertas">
+    @for (f of filters; track f.value) {
+      <button type="button" [class.active]="filter === f.value" [attr.aria-pressed]="filter === f.value" (click)="setFilter(f.value)">
+        {{ f.label }}
+      </button>
+    }
+    <span class="count">{{ alerts.length }} alerta(s)</span>
+  </div>
+
+  <section class="table-card">
+    @for (alert of alerts; track alert.id) {
+      <div class="alert-item" [class]="'alert-item ' + alert.level">
+        <div class="info">
+          <span class="risk" [class]="'risk ' + alert.level">{{ alert.level }}</span>
+          <a class="patient" [routerLink]="['/pacientes', alert.patient_id]">{{ alert.patient_name }}</a>
+          <span class="text">{{ alert.message }}</span>
+          <span class="muted">
+            {{ alert.created_at | date: 'short' }}
+            @if (alert.status === 'atendida') { · atendida {{ alert.attended_at | date: 'short' }} }
+            @if (alert.note) { · nota: {{ alert.note }} }
+          </span>
+        </div>
+
+        @if (alert.status === 'pendiente') {
+          @if (attendingId === alert.id) {
+            <div class="attend-box">
+              <label class="sr-only" [for]="'note-' + alert.id">Nota</label>
+              <input #note [id]="'note-' + alert.id" type="text" placeholder="Nota (opcional)" />
+              <button type="button" class="btn-primary" (click)="attend(alert, note.value)">Confirmar</button>
+              <button type="button" class="btn-secondary" (click)="attendingId = null">Cancelar</button>
+            </div>
+          } @else {
+            <button type="button" class="btn-secondary" (click)="attendingId = alert.id">Marcar atendida</button>
+          }
+        } @else {
+          <span class="done">Atendida</span>
+        }
+      </div>
+    } @empty {
+      <p class="empty">No hay alertas en esta vista.</p>
+    }
+  </section>
+</div>

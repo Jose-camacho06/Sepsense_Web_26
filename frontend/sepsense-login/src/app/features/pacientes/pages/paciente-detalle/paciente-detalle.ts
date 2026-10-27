@@ -20,6 +20,8 @@ export class PacienteDetalle {
 
   patient: PatientDetail | null = null;
   last: Reading | null = null;
+  breakdown: { label: string; value: string; points: number }[] = [];
+  clinicalResponse: { level: string; title: string; text: string } | null = null;
   message = '';
   attendingId: number | null = null;
   showForm = false;
@@ -77,6 +79,7 @@ export class PacienteDetalle {
         this.patient = response.patient;
         const readings = response.patient.readings;
         this.last = readings.length ? readings[readings.length - 1] : null;
+        this.buildBreakdown();
         this.buildCharts(readings);
         this.cdr.markForCheck();
       },
@@ -140,5 +143,49 @@ export class PacienteDetalle {
         this.cdr.markForCheck();
       },
     });
+  }
+
+  private buildBreakdown() {
+    const r = this.last;
+    this.breakdown = [];
+    this.clinicalResponse = null;
+    if (!r) {
+      return;
+    }
+    const points = r.news2_points ?? {};
+    const rows: [string, string, string | null][] = [
+      ['respiratory_rate', 'Frec. respiratoria', r.respiratory_rate !== null ? `${r.respiratory_rate} rpm` : null],
+      ['spo2', 'SpO₂', r.spo2 !== null ? `${r.spo2} %` : null],
+      ['supplemental_oxygen', 'Oxígeno suplementario', r.supplemental_oxygen === null ? null : r.supplemental_oxygen ? 'Sí' : 'No'],
+      ['systolic', 'PA sistólica', r.systolic !== null ? `${r.systolic} mmHg` : null],
+      ['heart_rate', 'Frec. cardíaca', r.heart_rate !== null ? `${r.heart_rate} lpm` : null],
+      ['temperature', 'Temperatura', r.temperature !== null ? `${r.temperature} °C` : null],
+      ['consciousness', 'Conciencia', r.consciousness ? this.consciousnessLabels[r.consciousness] : null],
+    ];
+    this.breakdown = rows
+      .filter(([key]) => key in points)
+      .map(([key, label, value]) => ({ label, value: value ?? '—', points: points[key] }));
+    const anyThree = Object.values(points).some((p) => p === 3);
+    this.clinicalResponse = this.responseFor(r.news2, anyThree);
+  }
+
+  // Basado en la interpretación del NEWS2 (Royal College of Physicians), la misma del documento.
+  private responseFor(news2: number | null, anyThree: boolean) {
+    if (news2 === null) {
+      return { level: 'normal', title: 'NEWS2 incompleto', text: 'Faltan parámetros para calcular el total. Registra los 7 parámetros.' };
+    }
+    if (news2 >= 7) {
+      return { level: 'alto', title: 'Riesgo alto · respuesta de emergencia', text: 'Evaluación de emergencia por un equipo con competencias en cuidado crítico. Monitoreo continuo de signos vitales.' };
+    }
+    if (news2 >= 5) {
+      return { level: 'medio', title: 'Riesgo medio · respuesta urgente', text: 'Evaluación urgente por un clínico con competencias en paciente agudo. Monitoreo como mínimo cada hora.' };
+    }
+    if (anyThree) {
+      return { level: 'medio', title: 'Un parámetro en rango crítico', text: 'Revisión urgente por el clínico de la sala para decidir si se escala la atención. Monitoreo como mínimo cada hora.' };
+    }
+    if (news2 >= 1) {
+      return { level: 'bajo', title: 'Riesgo bajo', text: 'Valoración por enfermería para decidir si aumentar la frecuencia de monitoreo. Monitoreo como mínimo cada 4 a 6 horas.' };
+    }
+    return { level: 'normal', title: 'Sin puntaje de riesgo', text: 'Monitoreo rutinario, como mínimo cada 12 horas.' };
   }
 }

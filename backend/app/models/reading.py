@@ -36,6 +36,8 @@ class Reading(db.Model):
     patient = db.relationship('Patient')
 
     def to_dict(self):
+        from app.common.scores import calculate  # import aquí para evitar importaciones circulares
+        points = calculate(self)[0]
         return {
             'id': self.id,
             'patient_id': self.patient_id,
@@ -51,6 +53,7 @@ class Reading(db.Model):
             'qsofa': self.qsofa,
             'shock_index': self.shock_index,
             'modified_shock_index': self.modified_shock_index,
+            'news2_points': points,
             'source': self.source,
             'created_at': self.created_at.isoformat() if self.created_at else None,
         }
