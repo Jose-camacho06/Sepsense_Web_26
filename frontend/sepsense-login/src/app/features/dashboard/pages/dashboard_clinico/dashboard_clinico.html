@@ -1,0 +1,56 @@
+<div class="page-content">
+  <div class="page-header">
+    <div>
+      <h1>Dashboard clínico</h1>
+      <p>Estado de la sala en este momento. Se actualiza cada 15 segundos.</p>
+    </div>
+  </div>
+
+  @if (message) {
+    <div class="message">{{ message }}</div>
+  }
+
+  @if (summary) {
+    <section class="cards">
+      <div class="card highlight"><span>Pacientes monitoreados</span><strong>{{ summary.total_patients }}</strong></div>
+      <div class="card highlight"><span>Riesgo alto</span><strong class="danger">{{ summary.by_risk.alto }}</strong></div>
+      <div class="card highlight"><span>Alertas pendientes</span><strong>{{ summary.pending_alerts }}</strong></div>
+      <div class="card highlight"><span>Lecturas última hora</span><strong>{{ summary.readings_last_hour }}</strong></div>
+    </section>
+
+    <section class="charts">
+      <div class="chart-card">
+        <h2>Pacientes por nivel de riesgo</h2>
+        <div class="chart-box"><canvas baseChart [data]="riskChart" [options]="riskOptions" [type]="'doughnut'"></canvas></div>
+      </div>
+
+      <div class="chart-card">
+        <h2>Empeoraron en la última hora</h2>
+        @for (w of summary.worsening; track w.patient_id) {
+          <a class="worse-item" [routerLink]="['/pacientes', w.patient_id]">
+            <strong>{{ w.name }}</strong>
+            <span>NEWS2 {{ w.from }} → <b>{{ w.to }}</b></span>
+          </a>
+        } @empty {
+          <p class="empty">Ningún paciente empeoró en la última hora.</p>
+        }
+      </div>
+    </section>
+
+    <h2 class="section-title">Alertas recientes</h2>
+    <section class="table-card">
+      @for (alert of summary.recent_alerts; track alert.id) {
+        <div class="alert-item">
+          <div>
+            <span class="risk" [class]="'risk ' + alert.level">{{ alert.level }}</span>
+            <strong>{{ alert.patient_name }}</strong> · {{ alert.message }}
+            <span class="muted">{{ alert.created_at | date: 'short' }} · {{ alert.status }}</span>
+          </div>
+          <a class="btn-secondary link-btn" [routerLink]="['/pacientes', alert.patient_id]">Ver paciente</a>
+        </div>
+      } @empty {
+        <p class="empty">Sin alertas.</p>
+      }
+    </section>
+  }
+</div>

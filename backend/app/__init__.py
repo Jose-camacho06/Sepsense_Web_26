@@ -14,6 +14,8 @@ from app.routes.actualizar_usuario.route import users_bp
 from app.routes.users.route import users_bp as admin_users_bp
 from app.routes.roles.route import roles_bp
 from app.routes.dashboard.route import dashboard_bp
+from app.routes.patients.route import patients_bp
+from app.routes.readings.route import readings_bp
 
 
 def create_app(test_config=None):
@@ -32,7 +34,7 @@ def create_app(test_config=None):
     jwt.init_app(app)
     CORS(app, resources={r'/api/*': {'origins': app.config['CORS_ORIGINS']}}, allow_headers=['Content-Type', 'Authorization'])
 
-    for blueprint in (login_bp, register_bp, forgot_password_bp, users_bp, admin_users_bp, roles_bp, dashboard_bp):
+    for blueprint in (login_bp, register_bp, forgot_password_bp, users_bp, admin_users_bp, roles_bp, dashboard_bp, patients_bp, readings_bp):
         app.register_blueprint(blueprint)
 
     def failure(message, status):

@@ -1,0 +1,124 @@
+<div class="page-content">
+  <a routerLink="/pacientes" class="back">← Pacientes</a>
+
+  @if (message) {
+    <div class="message">{{ message }}</div>
+  }
+
+  @if (patient) {
+    <div class="page-header with-action">
+      <div>
+        <h1>{{ patient.first_name }} {{ patient.last_name }}</h1>
+        <p>
+          {{ patient.identification }}
+          @if (patient.age !== null) { · {{ patient.age }} años }
+          @if (last) { · última lectura {{ last.created_at | date: 'short' }} ({{ last.source }}) }
+        </p>
+      </div>
+      <span class="risk big" [class]="'risk big ' + patient.risk">
+        {{ patient.risk === 'normal' ? 'Sin alertas' : 'Riesgo ' + patient.risk }}
+      </span>
+    </div>
+
+    @if (last) {
+      <h2 class="section-title">Indicadores</h2>
+      <section class="cards">
+        <div class="card highlight"><span>NEWS2</span><strong>{{ last.news2 ?? '—' }}</strong></div>
+        <div class="card highlight"><span>qSOFA</span><strong>{{ last.qsofa ?? '—' }}</strong></div>
+        <div class="card highlight"><span>Índice de shock</span><strong>{{ last.shock_index ?? '—' }}</strong></div>
+        <div class="card highlight"><span>Índice de shock mod.</span><strong>{{ last.modified_shock_index ?? '—' }}</strong></div>
+      </section>
+
+      <h2 class="section-title">Signos vitales</h2>
+      <section class="cards">
+        <div class="card"><span>Frec. cardíaca</span><strong>{{ last.heart_rate ?? '—' }} <small>lpm</small></strong></div>
+        <div class="card"><span>Frec. respiratoria</span><strong>{{ last.respiratory_rate ?? '—' }} <small>rpm</small></strong></div>
+        <div class="card"><span>SpO₂</span><strong>{{ last.spo2 ?? '—' }} <small>%</small></strong></div>
+        <div class="card"><span>Presión arterial</span><strong>{{ last.systolic ?? '—' }}/{{ last.diastolic ?? '—' }} <small>mmHg</small></strong></div>
+        <div class="card"><span>Temperatura</span><strong>{{ last.temperature ?? '—' }} <small>°C</small></strong></div>
+        <div class="card"><span>Conciencia</span><strong class="text">{{ last.consciousness ? consciousnessLabels[last.consciousness] : '—' }}</strong></div>
+        <div class="card"><span>Oxígeno suplementario</span><strong class="text">{{ last.supplemental_oxygen ? 'Sí' : 'No' }}</strong></div>
+      </section>
+
+      <section class="charts">
+        <div class="chart-card">
+          <h2>Frecuencia cardíaca y temperatura</h2>
+          <div class="chart-box"><canvas baseChart [data]="vitalsChart" [options]="vitalsOptions" [type]="'line'"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <h2>Evolución del NEWS2</h2>
+          <div class="chart-box"><canvas baseChart [data]="news2Chart" [options]="news2Options" [type]="'line'"></canvas></div>
+        </div>
+      </section>
+    } @else {
+      <div class="message">Este paciente todavía no tiene lecturas. Puedes registrar la primera abajo.</div>
+    }
+
+    <h2 class="section-title">Alertas</h2>
+    <section class="table-card">
+      @for (alert of patient.alerts; track alert.id) {
+        <div class="alert-item">
+          <div>
+            <span class="risk" [class]="'risk ' + alert.level">{{ alert.level }}</span>
+            <strong>{{ alert.message }}</strong>
+            <span class="muted">
+              {{ alert.created_at | date: 'short' }}
+              @if (alert.status === 'atendida') { · atendida {{ alert.attended_at | date: 'short' }} }
+              @if (alert.note) { · nota: {{ alert.note }} }
+            </span>
+          </div>
+          @if (alert.status === 'pendiente') {
+            @if (attendingId === alert.id) {
+              <div class="attend-box">
+                <label class="sr-only" [for]="'note-' + alert.id">Nota</label>
+                <input #note [id]="'note-' + alert.id" type="text" placeholder="Nota (opcional)" />
+                <button type="button" class="btn-primary" (click)="attend(alert, note.value)">Confirmar</button>
+                <button type="button" class="btn-secondary" (click)="attendingId = null">Cancelar</button>
+              </div>
+            } @else {
+              <button type="button" class="btn-secondary" (click)="attendingId = alert.id">Marcar atendida</button>
+            }
+          }
+        </div>
+      } @empty {
+        <p class="empty">Sin alertas.</p>
+      }
+    </section>
+
+    <div class="with-action">
+      <h2 class="section-title">Registrar lectura manual</h2>
+      <button type="button" class="btn-secondary" (click)="showForm = !showForm">{{ showForm ? 'Cerrar' : 'Nueva lectura' }}</button>
+    </div>
+
+    @if (showForm) {
+      <section class="form-card">
+        <form [formGroup]="readingForm" (ngSubmit)="saveReading()">
+          <div class="form-grid">
+            <div class="field"><label for="fr">Frec. respiratoria (rpm)</label><input id="fr" type="number" formControlName="respiratory_rate" /></div>
+            <div class="field"><label for="spo2">SpO₂ (%)</label><input id="spo2" type="number" step="0.1" formControlName="spo2" /></div>
+            <div class="field"><label for="fc">Frec. cardíaca (lpm)</label><input id="fc" type="number" formControlName="heart_rate" /></div>
+            <div class="field"><label for="pas">PA sistólica (mmHg)</label><input id="pas" type="number" formControlName="systolic" /></div>
+            <div class="field"><label for="pad">PA diastólica (mmHg)</label><input id="pad" type="number" formControlName="diastolic" /></div>
+            <div class="field"><label for="temp">Temperatura (°C)</label><input id="temp" type="number" step="0.1" formControlName="temperature" /></div>
+            <div class="field">
+              <label for="acvpu">Conciencia (ACVPU)</label>
+              <select id="acvpu" formControlName="consciousness">
+                <option value="A">A · Alerta</option>
+                <option value="C">C · Confusión nueva</option>
+                <option value="V">V · Responde a la voz</option>
+                <option value="P">P · Responde al dolor</option>
+                <option value="U">U · No responde</option>
+              </select>
+            </div>
+            <label class="check-field"><input type="checkbox" formControlName="supplemental_oxygen" /> Oxígeno suplementario</label>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn-primary" [disabled]="isSaving">{{ isSaving ? 'Guardando...' : 'Guardar lectura' }}</button>
+          </div>
+        </form>
+      </section>
+    }
+
+    <p class="disclaimer">SepSense es una herramienta académica de apoyo; no sustituye el criterio clínico ni constituye un diagnóstico.</p>
+  }
+</div>

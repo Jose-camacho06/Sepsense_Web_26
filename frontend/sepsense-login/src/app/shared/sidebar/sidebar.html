@@ -1,6 +1,14 @@
 <nav class="sidebar">
-  <a routerLink="/home">Home</a>
-  <a *ngIf="esAdmin" routerLink="/dashboard">Dashboard</a>
-  <a routerLink="/usuarios">Usuarios</a>
-  <a routerLink="/roles">Roles</a>
+  <a routerLink="/home">Inicio</a>
+
+  @if (esClinico) {
+    <a routerLink="/panel">Dashboard</a>
+    <a routerLink="/pacientes">Pacientes</a>
+  }
+
+  @if (esAdmin) {
+    <a routerLink="/dashboard">Dashboard</a>
+    <a routerLink="/usuarios">Usuarios</a>
+    <a routerLink="/roles">Roles</a>
+  }
 </nav>

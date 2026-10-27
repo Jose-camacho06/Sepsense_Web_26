@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './guards/auth.guards';
 import { authDashboard } from './guards/admin.guard';
+import { clinicalGuard } from './guards/clinical.guard';
 
 export const routes: Routes = [
   {
@@ -28,10 +29,10 @@ export const routes: Routes = [
       import('./layouts/main-layout/main-layout').then((component) => component.MainLayout),
     children: [
     {
-        path: 'home',
-        loadComponent: () =>
-          import('./features/home/pages/home/home_admin/home').then((component) => component.HomeAdmin),
-      },
+    path: 'home',
+    loadComponent: () =>
+    import('./features/home/pages/home/home').then((component) => component.Home),
+},
       {
         path: 'roles',
         loadComponent: () =>
@@ -48,6 +49,27 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/usuarios/pages/usuarios/usuarios').then((component) => component.Usuarios),
   },
+
+  {
+  path: 'pacientes',
+  canActivate: [clinicalGuard],
+  loadComponent: () =>
+    import('./features/pacientes/pages/pacientes/pacientes').then((component) => component.Pacientes),
+},
+
+{
+  path: 'pacientes/:id',
+  canActivate: [clinicalGuard],
+  loadComponent: () =>
+    import('./features/pacientes/pages/paciente-detalle/paciente-detalle').then((c) => c.PacienteDetalle),
+},
+
+{
+  path: 'panel',
+  canActivate: [clinicalGuard],
+  loadComponent: () =>
+    import('./features/dashboard/pages/dashboard_clinico/dashboard_clinico').then((c) => c.DashboardClinico),
+},
 
     ],
   },

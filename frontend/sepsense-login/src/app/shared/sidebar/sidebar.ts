@@ -1,18 +1,21 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [RouterLink, CommonModule],
+  imports: [RouterLink],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss',
 })
 export class Sidebar {
-  private authService = inject(AuthService);
+  private role = inject(AuthService).getCurrentUser()?.role ?? '';
 
   get esAdmin(): boolean {
-    return this.authService.isAdmin();
+    return this.role === 'admin';
+  }
+
+  get esClinico(): boolean {
+    return this.role === 'doctor' || this.role === 'enfermero';
   }
 }

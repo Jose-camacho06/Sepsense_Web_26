@@ -1,0 +1,108 @@
+<div class="page-content">
+  <div class="page-header with-action">
+    <div>
+      <h1>Pacientes</h1>
+      <p>Ordenados por riesgo: los que requieren atención aparecen primero.</p>
+    </div>
+    <button type="button" class="btn-primary" (click)="showForm = !showForm">
+      {{ showForm ? 'Cerrar' : 'Nuevo paciente' }}
+    </button>
+  </div>
+
+  @if (message) {
+    <div class="message">{{ message }}</div>
+  }
+
+  @if (showForm) {
+    <section class="form-card">
+      <h2>Registrar paciente</h2>
+      <form [formGroup]="form" (ngSubmit)="save()">
+        <div class="form-grid">
+          <div class="field">
+            <label for="identification">Identificación</label>
+            <input id="identification" type="text" formControlName="identification" />
+          </div>
+          <div class="field">
+            <label for="birth_date">Fecha de nacimiento</label>
+            <input id="birth_date" type="date" formControlName="birth_date" />
+          </div>
+          <div class="field">
+            <label for="first_name">Nombre</label>
+            <input id="first_name" type="text" formControlName="first_name" />
+          </div>
+          <div class="field">
+            <label for="last_name">Apellido</label>
+            <input id="last_name" type="text" formControlName="last_name" />
+          </div>
+          <div class="field">
+            <label for="sex">Sexo</label>
+            <select id="sex" formControlName="sex">
+              <option value="">Sin especificar</option>
+              <option value="F">Femenino</option>
+              <option value="M">Masculino</option>
+              <option value="Otro">Otro</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn-primary" [disabled]="isSaving">
+            {{ isSaving ? 'Guardando...' : 'Guardar' }}
+          </button>
+        </div>
+      </form>
+    </section>
+  }
+
+  <section class="form-card search-card">
+    <input #box type="search" placeholder="Buscar por nombre o identificación" (keyup.enter)="onSearch(box.value)" />
+    <button type="button" class="btn-primary" (click)="onSearch(box.value)">Buscar</button>
+  </section>
+
+  <section class="table-card">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Paciente</th>
+          <th>Riesgo</th>
+          <th>NEWS2</th>
+          <th>FC</th>
+          <th>Temp.</th>
+          <th>Última lectura</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (p of patients; track p.id) {
+          <tr>
+            <td>
+              <strong>{{ p.first_name }} {{ p.last_name }}</strong>
+              <span class="muted">{{ p.identification }}@if (p.age !== null) { · {{ p.age }} años}</span>
+            </td>
+            <td>
+              <span class="risk" [class]="'risk ' + p.risk">{{ riskLabel(p.risk) }}</span>
+              @if (p.pending_alerts) {
+                <span class="muted">{{ p.pending_alerts }} pendiente(s)</span>
+              }
+            </td>
+            <td>{{ p.last_reading?.news2 ?? '—' }}</td>
+            <td>{{ p.last_reading?.heart_rate ?? '—' }}</td>
+            <td>{{ p.last_reading?.temperature ?? '—' }}</td>
+            <td>
+              @if (p.last_reading) {
+                {{ p.last_reading.created_at | date: 'short' }}
+                <span class="muted">{{ p.last_reading.source }}</span>
+              } @else {
+                Sin lecturas
+              }
+            </td>
+            <td class="actions">
+              <button type="button" (click)="open(p)">Ver</button>
+            </td>
+          </tr>
+        } @empty {
+          <tr><td colspan="7">No hay pacientes para mostrar.</td></tr>
+        }
+      </tbody>
+    </table>
+  </section>
+</div>

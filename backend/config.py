@@ -12,3 +12,4 @@ class Config:
     JWT_TOKEN_LOCATION = ['headers']
     CORS_ORIGINS = os.getenv('CORS_ORIGINS', 'http://localhost:4200').split(',')
     PUBLIC_REGISTRATION = os.getenv('PUBLIC_REGISTRATION', 'true').lower() == 'true'
+    DEVICE_API_KEY = os.getenv('DEVICE_API_KEY')

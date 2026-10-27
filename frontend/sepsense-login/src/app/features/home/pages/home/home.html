@@ -1,0 +1,10 @@
+@if (isAdmin) {
+  <app-home-admin />
+} @else if (isClinico) {
+  <app-home-clinico />
+} @else {
+  <div class="page-content">
+    <h1>Bienvenido a SepSense</h1>
+    <p>Tu cuenta todavía no tiene un panel asignado. Comunícate con el administrador.</p>
+  </div>
+}
