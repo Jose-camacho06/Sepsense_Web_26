@@ -43,6 +43,14 @@
               <option value="Otro">Otro</option>
             </select>
           </div>
+                    <div class="field">
+            <label for="floor">Piso</label>
+            <input id="floor" type="text" formControlName="floor" placeholder="Ej: 3" />
+          </div>
+          <div class="field">
+            <label for="room">Habitación</label>
+            <input id="room" type="text" formControlName="room" placeholder="Ej: 305" />
+          </div>
         </div>
         <div class="form-actions">
           <button type="submit" class="btn-primary" [disabled]="isSaving">

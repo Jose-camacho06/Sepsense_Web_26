@@ -11,6 +11,8 @@ class Patient(db.Model):
     last_name = db.Column(db.String(100), nullable=False)
     birth_date = db.Column(db.Date, nullable=True)
     sex = db.Column(db.String(10), nullable=True)
+    floor = db.Column(db.String(20), nullable=True, index=True)   # piso
+    room = db.Column(db.String(20), nullable=True)                # habitación
     notes = db.Column(db.Text, nullable=True)
     is_active = db.Column(db.Boolean, default=True, nullable=False)
     created_by = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
@@ -36,6 +38,8 @@ class Patient(db.Model):
             'birth_date': self.birth_date.isoformat() if self.birth_date else None,
             'age': self.age(),
             'sex': self.sex,
+            'floor': self.floor,
+            'room': self.room,
             'notes': self.notes,
             'is_active': self.is_active,
             'created_at': self.created_at.isoformat() if self.created_at else None,

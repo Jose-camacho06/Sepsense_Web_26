@@ -28,6 +28,8 @@ export class Pacientes {
     last_name: ['', Validators.required],
     birth_date: [''],
     sex: [''],
+    floor: [''],
+    room: [''],
   });
 
   constructor() {
@@ -74,13 +76,23 @@ export class Pacientes {
         last_name: v.last_name ?? '',
         birth_date: v.birth_date || null,
         sex: v.sex || null,
+        floor: v.floor || null,
+        room: v.room || null,
       })
       .subscribe({
         next: (response) => {
           this.message = response.message;
           this.isSaving = false;
           this.showForm = false;
-          this.form.reset({ identification: '', first_name: '', last_name: '', birth_date: '', sex: '' });
+          this.form.reset({
+            identification: '',
+            first_name: '',
+            last_name: '',
+            birth_date: '',
+            sex: '',
+            floor: '',
+            room: '',
+          });
           this.load();
         },
         error: (error) => {

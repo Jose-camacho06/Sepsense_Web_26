@@ -45,6 +45,8 @@ export interface PatientSummary {
   birth_date: string | null;
   age: number | null;
   sex: string | null;
+  floor: string | null;
+  room: string | null;
   notes: string | null;
   last_reading: Reading | null;
   pending_alerts: number;
@@ -62,6 +64,8 @@ export interface NewPatient {
   last_name: string;
   birth_date: string | null;
   sex: string | null;
+  floor: string | null;
+  room: string | null;
 }
 export interface ClinicalSummary {
   total_patients: number;
@@ -89,6 +93,10 @@ export class ClinicalService {
 
   createPatient(data: NewPatient) {
     return this.http.post<{ message: string }>(`${API_URL}/patients`, data);
+  }
+
+    updatePatient(id: number, data: Partial<NewPatient>) {
+    return this.http.patch<{ message: string }>(`${API_URL}/patients/${id}`, data);
   }
 
   addReading(patientId: number, data: Partial<Reading>) {

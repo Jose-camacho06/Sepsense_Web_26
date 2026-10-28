@@ -1,63 +1,81 @@
 <div class="page-content">
-  <section class="hero">
-    <div class="badge">
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M3 12h4l3-8 4 16 3-8h4" />
-      </svg>
-      {{ roleLabel }}
+  <div class="board-header">
+    <div>
+      <h1>Sala de hospitalización</h1>
+      <p>
+        <strong>{{ needAttention }}</strong> paciente(s) requieren atención ·
+        actualizado {{ updatedAt }}
+      </p>
     </div>
-    <h1>Bienvenido(a), {{ name }}</h1>
-    <p>Este es el estado de tus pacientes. Empieza por los que tienen riesgo más alto.</p>
-    <span class="date">{{ today }}</span>
-  </section>
+  </div>
 
-  @if (summary) {
-    <section class="stats">
-      <div class="stat"><span>Pacientes monitoreados</span><strong>{{ summary.total_patients }}</strong></div>
-      <div class="stat danger"><span>En riesgo alto</span><strong>{{ summary.by_risk.alto }}</strong></div>
-      <div class="stat"><span>Alertas pendientes</span><strong>{{ summary.pending_alerts }}</strong></div>
-    </section>
+  <div class="floors" role="group" aria-label="Filtrar por piso">
+    <button type="button" [class.active]="selectedFloor === 'todos'" [attr.aria-pressed]="selectedFloor === 'todos'" (click)="selectedFloor = 'todos'">Todos</button>
+    @for (floor of floors; track floor) {
+      <button type="button" [class.active]="selectedFloor === floor" [attr.aria-pressed]="selectedFloor === floor" (click)="selectedFloor = floor">Piso {{ floor }}</button>
+    }
+    @if (hasUnassigned) {
+      <button type="button" [class.active]="selectedFloor === 'sin'" [attr.aria-pressed]="selectedFloor === 'sin'" (click)="selectedFloor = 'sin'">Sin ubicación</button>
+    }
+  </div>
+
+  @if (message) {
+    <div class="message">{{ message }}</div>
   }
+  @if (priority.length) {
+    <h2 class="section-title">Alertas prioritarias</h2>
+    <section class="priority">
+      @for (p of priority; track p.id) {
+        <a class="priority-item" [class]="'priority-item ' + p.risk" [routerLink]="['/pacientes', p.id]">
+          <div class="priority-main">
+            <span class="location">
+              @if (p.floor) { Piso {{ p.floor }} · Hab. {{ p.room ?? '—' }} } @else { Sin ubicación }
+            </span>
+            <strong>{{ p.first_name }} {{ p.last_name }}</strong>
+            <span class="detail">{{ p.pending_alerts }} alerta(s) sin atender</span>
+          </div>
+          <div class="priority-score">
+            <span>NEWS2</span>
+            <b>{{ p.last_reading?.news2 ?? '—' }}</b>
+          </div>
+        </a>
+      }
+    </section>
 
-  <h2 class="section-title">Atender primero</h2>
-  <section class="priority">
-    @for (p of priority; track p.id) {
-      <a class="priority-item" [class]="'priority-item ' + p.risk" [routerLink]="['/pacientes', p.id]">
-        <div>
-          <strong>{{ p.first_name }} {{ p.last_name }}</strong>
-          <span>
-            NEWS2 {{ p.last_reading?.news2 ?? '—' }} · FC {{ p.last_reading?.heart_rate ?? '—' }} ·
-            Temp. {{ p.last_reading?.temperature ?? '—' }} · {{ p.pending_alerts }} alerta(s)
+    <h2 class="section-title">Todos los pacientes</h2>
+  }
+  <section class="board">
+    @for (p of visible; track p.id) {
+      <a class="bed" [class]="'bed ' + p.risk" [routerLink]="['/pacientes', p.id]">
+        <div class="bed-top">
+          <span class="location">
+            @if (p.floor) { Piso {{ p.floor }} · Hab. {{ p.room ?? '—' }} } @else { Sin ubicación }
           </span>
+          <span class="risk" [class]="'risk ' + p.risk">{{ riskLabel(p.risk) }}</span>
         </div>
-        <span class="risk" [class]="'risk ' + p.risk">{{ p.risk }}</span>
+
+        <strong class="name">{{ p.first_name }} {{ p.last_name }}</strong>
+        <span class="sub">{{ p.identification }}@if (p.age !== null) { · {{ p.age }} años}</span>
+
+        @if (p.last_reading; as r) {
+          <div class="vitals">
+            <div class="news"><span>NEWS2</span><b>{{ r.news2 ?? '—' }}</b></div>
+            <div><span>FC</span><b>{{ r.heart_rate ?? '—' }}</b></div>
+            <div><span>FR</span><b>{{ r.respiratory_rate ?? '—' }}</b></div>
+            <div><span>SpO₂</span><b>{{ r.spo2 ?? '—' }}</b></div>
+            <div><span>PA</span><b>{{ r.systolic ?? '—' }}/{{ r.diastolic ?? '—' }}</b></div>
+            <div><span>Temp.</span><b>{{ r.temperature ?? '—' }}</b></div>
+          </div>
+          <div class="bed-bottom">
+            <span>{{ p.pending_alerts }} alerta(s) pendiente(s)</span>
+            <span>{{ minutesAgo(r.created_at) }}</span>
+          </div>
+        } @else {
+          <p class="no-data">Sin lecturas registradas.</p>
+        }
       </a>
     } @empty {
-      <p class="empty">Ningún paciente tiene alertas pendientes.</p>
+      <p class="empty">No hay pacientes en este piso.</p>
     }
   </section>
-
-  <h2 class="section-title">Accesos rápidos</h2>
-  <section class="actions-grid">
-    <a class="action" routerLink="/panel">
-      <span class="icon">
-        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M4 20V4" /><path d="M4 20h16" /><path d="M8 16v-5M12 16V8M16 16v-3" />
-        </svg>
-      </span>
-      <strong>Dashboard clínico</strong>
-      <span>Estado de la sala y alertas recientes.</span>
-    </a>
-    <a class="action" routerLink="/pacientes">
-      <span class="icon">
-        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="12" cy="8" r="3.5" /><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6" />
-        </svg>
-      </span>
-      <strong>Pacientes</strong>
-      <span>Lista por riesgo, detalle, gráficas y lecturas manuales.</span>
-    </a>
-  </section>
-
-  <p class="disclaimer">SepSense es una herramienta académica de apoyo; no sustituye el criterio clínico.</p>
 </div>

@@ -19,14 +19,14 @@ load_dotenv()
 API_URL = 'http://127.0.0.1:5000/api/readings/ingest'
 
 PATIENTS = [
-    {'identification': 'SIM-001', 'first_name': 'Paciente', 'last_name': 'Estable', 'scenario': 'estable'},
-    {'identification': 'SIM-002', 'first_name': 'Paciente', 'last_name': 'Deterioro', 'scenario': 'deterioro'},
-    {'identification': 'SIM-003', 'first_name': 'Paciente', 'last_name': 'Crítico', 'scenario': 'critico'},
+    {'identification': 'SIM-001', 'first_name': 'Paciente', 'last_name': 'Estable', 'scenario': 'estable', 'floor': '3', 'room': '301'},
+    {'identification': 'SIM-002', 'first_name': 'Paciente', 'last_name': 'Deterioro', 'scenario': 'deterioro', 'floor': '3', 'room': '305'},
+    {'identification': 'SIM-003', 'first_name': 'Paciente', 'last_name': 'Crítico', 'scenario': 'critico', 'floor': '4', 'room': '402'},
 ]
 
 
 def prepare(reset):
-    """Crea los pacientes ficticios y, si se pide, borra sus lecturas y alertas anteriores."""
+    """Crea los pacientes ficticios, les asigna ubicación y, si se pide, borra sus lecturas y alertas."""
     app = create_app()
     with app.app_context():
         ids = {}
@@ -42,6 +42,13 @@ def prepare(reset):
                 db.session.add(patient)
                 db.session.commit()
                 print(f"Creado: {item['first_name']} {item['last_name']} (id {patient.id})")
+
+            # Si el paciente todavía no tiene ubicación, se le asigna la de la lista.
+            if not patient.floor:
+                patient.floor = item['floor']
+                patient.room = item['room']
+                db.session.commit()
+
             ids[item['identification']] = patient.id
 
         if reset:

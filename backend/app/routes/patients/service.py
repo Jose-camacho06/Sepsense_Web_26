@@ -6,8 +6,7 @@ from app.extensions import db
 from app.models import Alert, Patient, Reading
 
 LEVEL_ORDER = {'alto': 3, 'medio': 2, 'bajo': 1}
-FIELDS = {'identification', 'first_name', 'last_name', 'birth_date', 'sex', 'notes'}
-
+FIELDS = {'identification', 'first_name', 'last_name', 'birth_date', 'sex', 'notes', 'floor', 'room'}
 
 def _get(patient_id):
     patient = db.session.get(Patient, patient_id)
@@ -37,6 +36,9 @@ def _summary(patient):
 def list_patients():
     search = request.args.get('search', '').strip()
     query = Patient.query.filter_by(is_active=True)
+    floor = request.args.get('floor', '').strip()
+    if floor:
+        query = query.filter_by(floor=floor)
     if search:
         like = f'%{search}%'
         query = query.filter(or_(
@@ -116,6 +118,16 @@ def save_patient(data, patient_id=None):
         if notes is not None and (not isinstance(notes, str) or len(notes) > 1000):
             raise APIError('notes debe ser texto de máximo 1000 caracteres.')
         patient.notes = (notes or '').strip() or None
+
+    for key in ('floor', 'room'):
+        if key in data:
+            value = data[key]
+            if value in (None, ''):
+                setattr(patient, key, None)
+            elif not isinstance(value, (str, int)) or len(str(value).strip()) > 20:
+                raise APIError(f'{key} debe ser texto de máximo 20 caracteres.')
+            else:
+                setattr(patient, key, str(value).strip())
 
     if creating:
         db.session.add(patient)
